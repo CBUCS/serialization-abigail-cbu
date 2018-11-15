@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implement Serialization to binary Tree
+ * Take your binary tree and serialize the object.
+ * Then read it from disk and verify it is the same as your original input.
  */
 
 public class Main {
