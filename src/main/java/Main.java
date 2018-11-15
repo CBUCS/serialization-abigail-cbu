@@ -12,12 +12,12 @@ public class Main {
 
     public static void main(String args[]) {
 
-        BinaryTree<Object> binaryTree = new BinaryTree<Object>();
-        binaryTree.add(1);
-        binaryTree.add(2);
-        binaryTree.add(3);
-        binaryTree.add(4);
-        binaryTree.add(5);
+        BinaryTree<Object> inBinaryTree = new BinaryTree<Object>();
+        inBinaryTree.add(1);
+        inBinaryTree.add(2);
+        inBinaryTree.add(3);
+        inBinaryTree.add(4);
+        inBinaryTree.add(5);
 
         String filename = "binaryTree.ser";
 
@@ -25,7 +25,7 @@ public class Main {
         try {
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(binaryTree);
+            os.writeObject(inBinaryTree);
             os.close();
             fos.close();
 
@@ -39,21 +39,16 @@ public class Main {
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            BinaryTree outBinaryTree = (BinaryTree) ois.readObject();
+            BinaryTree<Object> outBinaryTree = (BinaryTree) ois.readObject();
             ois.close();
             fis.close();
 
             System.out.println("Deserialized data from binaryTree.ser");
-            boolean hasAllElements = true;
-            for (int i = 1; i <= outBinaryTree.size(); i++) {
-                if (outBinaryTree.contains(i) != (Object) i) {
-                    hasAllElements = false;
-                    break;
-                }
-            }
+
+            boolean hasAllElements = inBinaryTree == outBinaryTree;
 
             System.out.println("Contains all elements? " + hasAllElements);
-            
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         } catch (ClassNotFoundException e) {
