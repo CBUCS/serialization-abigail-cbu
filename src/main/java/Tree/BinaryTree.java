@@ -1,8 +1,9 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class BinaryTree<T> {
+public class BinaryTree<T> implements Serializable {
 
     public Node<T> root;
     private int size = 0;

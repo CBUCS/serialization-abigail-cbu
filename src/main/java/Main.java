@@ -1,34 +1,19 @@
-import Strategy.*;
 import Tree.BinaryTree;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implement the following algorithms for you binary search tree algorithm:
- * <p>
- * Breadth First Traverse
- * Depth First Traverse
- * Inorder
- * Preorder
- * Postorder
- * Minimum Depth
- * Max Depth
+ * Implement Serialization to binary Tree
  */
 
 public class Main {
 
     public static void main(String args[]) {
-
-        List<Strategy> strategies = new ArrayList<Strategy>();
-        // Add strategies here.
-        strategies.add(new BreadthFirstSearch());
-        strategies.add(new DepthFirstSearch());
-        strategies.add(new InOrder());
-        strategies.add(new PreOrder());
-        strategies.add(new PostOrder());
-        strategies.add(new MinimumDepth());
-        strategies.add(new MaxDepth());
 
         BinaryTree<Object> binaryTree = new BinaryTree<Object>();
         binaryTree.add(1);
@@ -38,18 +23,21 @@ public class Main {
         binaryTree.add(5);
 
 
-        for (Strategy strategy : strategies) {
-            List<Object> result = strategy.Traverse(binaryTree);
-            if (result != null) {
-                System.out.println(strategy.StrategyName());
+        try
+        {
+            FileOutputStream fos = new FileOutputStream("binaryTree.ser");
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(binaryTree);
+            os.close();
+            fos.close();
 
-                for (Object item : result) {
-                    System.out.println(item);
-                }
-            }
+            System.out.println("Serialized data is saved in /binaryTree.ser");
 
+            
         }
-
+        catch(IOException ex){
+            System.out.println(ex.getLocalizedMessage());
+        }
 
     }
 }
