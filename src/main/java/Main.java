@@ -1,9 +1,6 @@
 import Tree.BinaryTree;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,21 +19,45 @@ public class Main {
         binaryTree.add(4);
         binaryTree.add(5);
 
+        String filename = "binaryTree.ser";
 
-        try
-        {
-            FileOutputStream fos = new FileOutputStream("binaryTree.ser");
+        // Serialization
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(binaryTree);
             os.close();
             fos.close();
 
-            System.out.println("Serialized data is saved in /binaryTree.ser");
-
-            
+            System.out.println("Serialized data is saved in binaryTree.ser");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
-        catch(IOException ex){
-            System.out.println(ex.getLocalizedMessage());
+
+
+        //Deserialize
+        try {
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            BinaryTree outBinaryTree = (BinaryTree) ois.readObject();
+            ois.close();
+            fis.close();
+
+            System.out.println("Deserialized data from binaryTree.ser");
+            boolean hasAllElements = true;
+            for (int i = 1; i <= outBinaryTree.size(); i++) {
+                if (outBinaryTree.contains(i) != (Object) i) {
+                    hasAllElements = false;
+                    break;
+                }
+            }
+
+            System.out.println("Contains all elements? " + hasAllElements);
+            
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
         }
 
     }

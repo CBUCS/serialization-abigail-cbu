@@ -67,8 +67,7 @@ public class BinaryTree<T> implements Serializable {
         }
     }
 
-    public int size()
-    {
+    public int size() {
         return this.size;
     }
 
