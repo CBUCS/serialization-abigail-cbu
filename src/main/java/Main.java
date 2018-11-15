@@ -1,3 +1,4 @@
+import Strategy.*;
 import Tree.BinaryTree;
 
 import java.io.*;
@@ -20,6 +21,10 @@ public class Main {
         inBinaryTree.add(5);
 
         String filename = "binaryTree.ser";
+
+        List<Strategy> strategies = new ArrayList<Strategy>();
+        // Add strategies here.
+        strategies.add(new BreadthFirstSearch());
 
         // Serialization
         try {
@@ -45,7 +50,9 @@ public class Main {
 
             System.out.println("Deserialized data from binaryTree.ser");
 
-            boolean hasAllElements = inBinaryTree == outBinaryTree;
+            List<Object> inList = strategies.get(0).Traverse(inBinaryTree);
+            List<Object> outList = strategies.get(0).Traverse(outBinaryTree);
+            boolean hasAllElements = inList == outList;
 
             System.out.println("Contains all elements? " + hasAllElements);
 
